@@ -40,7 +40,7 @@ class Body extends Component {
           <div className="info">
             <h1>Guess the Lyric</h1>
             {/* <img src="./assets/guessLyricsLogo.png" alt=""Guess the Lyric/> */}
-            <form action="">
+            <form onSubmit={this.getLyrics} action="">
               <label htmlFor="artist">Artist:</label>
               <input 
                 type="text"
@@ -57,7 +57,7 @@ class Body extends Component {
                 onChange={this.songInput}
                 value={this.state.song}
                 />
-              <button type="submit" onClick={this.getLyrics}>Submit</button>
+              <button type="submit">Submit</button>
             </form>
           </div>
           <div className="lyrics">
