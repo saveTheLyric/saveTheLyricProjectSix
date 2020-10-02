@@ -4,6 +4,14 @@ import Header from './Header.js';
 import Body from "./Body.js"
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      
+    }
+  }
+
+
   render() {
     return (
       <div className="App">

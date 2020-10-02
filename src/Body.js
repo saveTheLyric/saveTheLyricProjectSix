@@ -1,6 +1,37 @@
-import React, {Component} from "react";
+import Axios from "axios";
+import React, { Component } from "react";
 
 class Body extends Component {
+  constructor() {
+    super()
+    this.state = {
+      artist: "",
+      song: "",
+    }
+  }
+
+  //Functions
+
+  artistInput = (e) => {
+    this.setState({
+      artist: e.target.value,
+    })
+  }
+
+  songInput = (e)=> {
+    this.setState({
+      song: e.target.value,
+    })
+  }
+
+  getLyrics = (e) => {
+    e.preventDefault();
+    Axios.get(`https://api.lyrics.ovh/v1/${this.state.artist}/${this.state.song}`)
+    .then((results) => {
+      console.log(results);
+    })
+  }
+
   render(){
     return(
 
@@ -11,10 +42,22 @@ class Body extends Component {
             {/* <img src="./assets/guessLyricsLogo.png" alt=""Guess the Lyric/> */}
             <form action="">
               <label htmlFor="artist">Artist:</label>
-              <input type="text" className="artist"/>
+              <input 
+                type="text"
+                id="artist"
+                className="artist"
+                onChange={this.artistInput}
+                value={this.state.artist}
+                />
               <label htmlFor="song">Song:</label>
-              <input type="text" className="song"/>
-              <button>Submit</button>
+              <input 
+                type="text" 
+                id="song"
+                className="song"
+                onChange={this.songInput}
+                value={this.state.song}
+                />
+              <button type="submit" onClick={this.getLyrics}>Submit</button>
             </form>
           </div>
           <div className="lyrics">
