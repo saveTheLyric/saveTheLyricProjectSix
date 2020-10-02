@@ -5,8 +5,11 @@ class Body extends Component {
   constructor() {
     super()
     this.state = {
-      artist: "",
-      song: "",
+      firebaseData: {
+        artist: "",
+        song: "",
+        lyrics: "",
+      },
     }
   }
 
@@ -14,20 +17,27 @@ class Body extends Component {
 
   artistInput = (e) => {
     this.setState({
-      artist: e.target.value,
+      firebaseData: {
+        artist: e.target.value,
+        song: this.state.firebaseData.song,
+      }
     })
   }
 
   songInput = (e)=> {
     this.setState({
-      song: e.target.value,
+      firebaseData: {
+        song: e.target.value,
+        artist: this.state.firebaseData.artist,
+      }
     })
   }
 
   getLyrics = (e) => {
     e.preventDefault();
-    Axios.get(`https://api.lyrics.ovh/v1/${this.state.artist}/${this.state.song}`)
+    Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((results) => {
+      
       console.log(results);
     })
   }
@@ -47,7 +57,7 @@ class Body extends Component {
                 id="artist"
                 className="artist"
                 onChange={this.artistInput}
-                value={this.state.artist}
+                value={this.state.firebaseData.artist}
                 />
               <label htmlFor="song">Song:</label>
               <input 
@@ -55,7 +65,7 @@ class Body extends Component {
                 id="song"
                 className="song"
                 onChange={this.songInput}
-                value={this.state.song}
+                value={this.state.firebaseData.song}
                 />
               <button type="submit">Submit</button>
             </form>
