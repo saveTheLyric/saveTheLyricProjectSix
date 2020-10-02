@@ -17,3 +17,69 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 }
 
 /* Font Family */
+
+/* Header */
+
+html {
+  font-size: 62.5%;
+  font-family: ‘Montserrat’, sans-serif;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  min-width: 100vh;
+}
+
+header {
+  display: flex;
+  background-image: url(./assets/microphone.jpg);
+  width: 60%;
+  height: 100%;
+  background-size: 100%;
+}
+
+h1 {
+  color: black;
+  border-bottom: green;
+  text-align: center;
+}
+
+/* Logo goes here */
+
+body {
+  background-color: white;
+  width: 40%;
+  height: 100%;
+}
+
+.wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 30%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border: 1px solid #577F90;
+}
+
+button {
+  margin: 10px 0;
+}
+
+.info {
+  height: 30%;
+}
+
+.lyrics {
+  border: solid 5px #577F90;
+  background: #86C2AE;
+  padding: 10px;
+  height: 60%;
+}
