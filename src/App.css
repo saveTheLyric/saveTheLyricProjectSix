@@ -16,8 +16,6 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   --textColor: black;
 }
 
-/* Font Family */
-
 /* Header */
 
 html {
@@ -25,19 +23,16 @@ html {
   font-family: ‘Montserrat’, sans-serif;
 }
 
-.App {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  min-width: 100vh;
-}
+/* .App {
+  height: 20%;
+} */
 
 header {
-  display: flex;
-  background-image: url(./assets/microphone.jpg);
-  width: 60%;
-  height: 100%;
-  background-size: 100%;
+  height: 70vh;
+  background-image: url(./assets/headerBanner.png);
+  /* background-size: 100% auto; */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -47,30 +42,128 @@ h1 {
 }
 
 /* Logo goes here */
+ 
+/* BODY */
 
-body {
+main {
+  display: flex;
   background-color: white;
-  width: 40%;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
 }
 
 .wrapper {
   max-width: 1080px;
   margin: 0 auto;
-  width: 30%;
+  width: 90%;
+}
+
+.left,
+.right {
+  width: 50%;
+  height: 100%;
+}
+
+h3 {
+  font-size: 2rem;
+  /* text-align: center; */
+}
+
+.logoContainer {
+  height: 50px;
+  width: 50px;
+  background-image: url(./assets/myLyricsButton.jpg);
+  background-size: 100% 100%;
+  position: relative;
+  top: 55px;
+  z-index: 1;
+}
+
+/* Having trouble applying images unless they're backgrounds */
+
+/* Left */
+
+.findLyrics,
+.myLyrics {
+  display: flex;
+  flex-direction: column;
+  /* height: 50%; */
+  border: 3px solid #577F90;
+  margin: 10px 0;
+  border-radius: 10px;;
+  padding: 0 20px;
+}
+
+.findLyrics {
+  height: 35%;
+}
+
+.myLyrics {
+  height: 60%;
+}
+
+.findLyrics h3 {
+  text-align: center;
+}
+
+.myLyrics h3 {
+  border-bottom: #F0917A solid 4px;
+  position: relative;
+  padding-left: 60px;
+  width: 100%;
+}
+
+.savedSongs {
+  padding: 5px;
+}
+
+.savedSongs:nth-of-type(2n+1){
+  background: #86C2AE;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.song,
+.artist {
+  display: flex;
+  justify-content: space-between;
+  margin: 1px 0;
+}
+
+.song input,
+.artist input {
+  width: 80%;
+}
+
+label {
+  font-size: 1.5rem;
 }
 
 input {
   border: 1px solid #577F90;
+  font-size: 1.5rem;
+  width: 10%;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
 }
 
 button {
   margin: 10px 0;
+  background-color: #F0917A;
+  color: white;
+  width: 50%;
+  font-size: 1.5rem;
+  border: none;
+  box-shadow: 2px 2px grey;
+  padding: 3px;
+  margin-right: 2px;
 }
 
 .info {
@@ -79,7 +172,12 @@ button {
 
 .lyrics {
   border: solid 5px #577F90;
+  border-radius: 10px;
   background: #86C2AE;
-  padding: 10px;
-  height: 60%;
+  padding: 15px;
+  height: 90%;
+}
+
+p {
+  font-size: 1.5rem;
 }
