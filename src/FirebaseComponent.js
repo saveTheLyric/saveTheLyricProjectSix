@@ -24,7 +24,6 @@ class Firebase extends Component {
                     artistSongLyrics: data[key]
                 });  
 
-
             }
             // console.log(storedFirebaseData)
             this.setState({
