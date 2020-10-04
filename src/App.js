@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+// import Firebase from './FirebaseComponent'
 import './App.css';
+
 import Header from './Header.js';
-import Body from "./Body.js"
-import Firebase from './FirebaseComponent'
+import Main from "./Main.js"
+import Footer from "./Footer"
+
+// import Spinner from 'Spinner';
 
 class App extends Component {
   constructor() {
@@ -15,13 +19,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <>
         <Header />
-        <Body/>
-        <div>
-          <Firebase />
-        </div>
-      </div>
+        <Main />
+        <Footer />
+      </>
     );
   }
 }
