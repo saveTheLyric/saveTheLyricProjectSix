@@ -131,12 +131,8 @@ updatedLyrics = () => {
                 <img src="./assets/myLyricsButton.jpg" alt=""></img>
               </div>
               <h3>My Lyrics</h3>
-              {/* Dynamically add songs here */}
-              {/* These are just placeholders */}
-              
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
               <Firebase />
-        
             </div>
           </section>
           {/* Right */}
