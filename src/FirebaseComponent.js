@@ -23,29 +23,37 @@ class Firebase extends Component {
                     key: key, 
                     artistSongLyrics: data[key]
                 });  
+
             }
-            console.log(storedFirebaseData)
+            // console.log(storedFirebaseData)
             this.setState({
-                storedFirebaseData: storedFirebaseData
+                storedFirebaseData
             });
         
         });
     }
 
+    displayLyrics = () => {
+        // add modal functions eres to display modal of artist song lyrics
+    }
+
     render() {
         return (
             <>
-                <div>
-                    {this.state.storedFirebaseData.map((data, index) => {
-                        {console.log(data)}
-                        return (
-                            <>
-                                <h2>{data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}</h2>
-                                <p>{data.artistSongLyrics.lyrics}</p>
-                            </>
-                        )
-                    })}
-                </div>
+                {this.state.storedFirebaseData.map((data, index) => {
+                    // {console.log(data)}
+                    return (
+                        <>
+                        <div className="savedSongs" key={index}>
+                            <button onClick={this.displayLyrics}>{data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}</button>
+
+                            <button className="">garbage icon</button>
+                        </div>
+
+                            {/* <p>{data.artistSongLyrics.lyrics}</p> */}
+                        </>
+                    )
+                })}
             </>
         );
     }  
