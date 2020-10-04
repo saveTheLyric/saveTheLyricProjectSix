@@ -90,10 +90,10 @@ class Main extends Component {
                 <input type="radio" />
                 <label htmlFor="radio">Song 4</label>
               </div>
-              <div className="savedSongs">
+              {/* <div className="savedSongs">
                 <input type="radio" />
                 <label htmlFor="radio">Song 5</label>
-              </div>
+              </div> */}
             </div>
           </section>
           {/* Right */}
