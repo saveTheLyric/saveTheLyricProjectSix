@@ -43,15 +43,15 @@ class Firebase extends Component {
                 {this.state.storedFirebaseData.map((data, index) => {
                     // {console.log(data)}
                     return (
-                        <>
-                        <div className="savedSongs" key={index}>
-                            <button onClick={this.displayLyrics}>{data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}</button>
+                        <div className="allSavedSongs">
+                          <div className="savedSongs" key={index}>
+                              <button onClick={this.displayLyrics}>{data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}</button>
 
-                            <button className="">garbage icon</button>
-                        </div>
+                              <button className=""></button>
+                          </div>
 
                             {/* <p>{data.artistSongLyrics.lyrics}</p> */}
-                        </>
+                        </div>
                     )
                 })}
             </>

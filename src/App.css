@@ -10,24 +10,11 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   --accent: #F0917A;
   --textColor: black;
 }
-/* 
-* {
-  margin: 0;
-  padding: 0;
-} */
 
-/* 
-section,
-main,
-div,
-h1,
-h2,
-h3,
-p,
-input,
-labels,
-textarea */
-/* Header */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+/* UNIVERSAL STYLES */
+
 html {
   font-size: 62.5%;
   font-family: ‘Montserrat’, sans-serif;
@@ -35,27 +22,44 @@ html {
 
 header {
   background-image: url(./assets/headerBanner.jpg);
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-position-y: top;
-
-  height: 90vh; 
+  height: 100vh; 
 }
 
-h1 {
-  color: black;
-  border-bottom: green;
-  text-align: center;
+h3 {
+  font-size: 2rem;
 }
-/* Logo goes here */
+
+button {
+  margin: 10px 0;
+  background-color: #F0917A;
+  color: white;
+  width: 50%;
+  font-size: 1.5rem;
+  /* how do you want this? */
+  /* border: none; */
+  /* box-shadow: 1px 1px grey; */
+  padding: 3px;
+  margin-right: 2px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
 /* BODY */
+
 main {
-  /* display: flex; */
   background-color: white;
   width: 100%;
   height: 100vh;
 }
+
 .wrapper {
   max-width: 1280px;
   margin: 0 auto;
@@ -67,61 +71,34 @@ main {
   justify-content: space-between;
 }
 
+/* LEFT CONTAINER */
+
 .left {
   width: 38%;
 }
-
-h3 {
-  font-size: 2rem;
-  /* text-align: center; */
-}
-.logoContainer {
-  height: 50px;
-  width: 50px;
-  background-image: url(./assets/myLyricsButton.jpg);
-  background-size: 100% 100%;
-  position: relative;
-  top: 55px;
-  z-index: 1;
-}
-/* Having trouble applying images unless they're backgrounds */
-/* Left */
 .findLyrics,
 .myLyrics {
   display: flex;
   flex-direction: column;
-  /* height: 50%; */
   border: 3px solid #577F90;
-  /* margin: 10px 0; */
+  margin: 10px 0;
   border-radius: 10px;;
-  padding: 0 20px;
-}
-.findLyrics {
-  height: 35%;
-}
-.myLyrics {
-  height: 60%;
-}
-.findLyrics h3 {
-  text-align: center;
-}
-.myLyrics h3 {
-  border-bottom: #F0917A solid 4px;
-  position: relative;
-  padding-left: 60px;
-  width: 100%;
-}
-.savedSongs {
-  display: flex;
-  padding: 5px;
-}
-.savedSongs:nth-of-type(2n+1){
-  background: #86C2AE;
+  padding: 0 15px;
 }
 form {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+
+/* A) TEST YOUR KNOWLEDGE */
+
+.findLyrics {
+  height: 35%;
+}
+.findLyrics h3 {
+  text-align: center;
 }
 .song,
 .artist {
@@ -141,44 +118,91 @@ input {
   font-size: 1.5rem;
   width: 10%;
 }
-.buttonContainer {
-  display: flex;
-  justify-content: flex-end;
-}
-button {
-  margin: 10px 0;
-  background-color: #F0917A;
-  color: white;
-  width: 50%;
-  font-size: 1.5rem;
-  border: none;
-  box-shadow: 2px 2px grey;
-  padding: 3px;
-  margin-right: 2px;
-}
 .info {
   height: 30%;
 }
 
+/* B) MY LYRICS CONTAINER: ERROR*/
+/* .logoContainer {
 
-/* Lyrics Section */
+} */
+.myLyrics {
+  height: 60%;
+}
+.myLyrics h3 {
+  border-bottom: #F0917A solid 4px;
+  /* position: relative; */
+  /* padding-left: 60px; */
+  /* margin: 10px; */
+  width: 100%;
+}
+.allSavedSongs button {
+  background-color: #86C2AE;
+}
+.savedSongs {
+  display: flex;
+  justify-content: space-between;
+  min-height: 30px;
+}
+.savedSongs button {
+  background-color: none;
+  margin: 2px 0;
+  width: 80%;
+}
+/* Garbage can icon */
+.savedSongs button:nth-of-type(2n+2){
+  background: grey;
+  background-image: url(./assets/garbageBin.png);
+  background-size: 20px 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20%;
+}
+button:hover,
+button:focus {
+  background: black;
+}
 
+
+/* RIGHT SECTION */
 .right {
   width: 58%;
   height: 100%;
 }
-
 .lyrics {
+  margin: 10px 0;
   border: solid 5px #577F90;
   border-radius: 10px;
   background: #86C2AE;
   padding: 15px;
-  height: 90%;
+  height: 100vh;
 }
-
 /* Lyrics Textarea */
 .lyricsContainer {
   resize: none;
-
   font-size: 1.5rem;
+}
+
+
+/* FOOTER */
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: #F0917A;
+  margin-top: 40px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:focus {
+  color: yellow;
 }
