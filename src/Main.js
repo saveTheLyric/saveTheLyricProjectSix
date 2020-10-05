@@ -16,7 +16,10 @@ class Main extends Component {
         song: "",
         lyrics: "",
       },
-      isLoading: false
+      isLoading: false,
+      splitLyrics: [],
+      hideIndex: [4], //when mapping splitLyrics compares each index to this number. We need it to compare several numbers in here
+                      //for example if hideIndex: [4, 8, 10, 22, 34, 89, 99, 102, 119, 136]. How do we compare the mapped over index to each number
     }
   }
 
@@ -45,18 +48,18 @@ class Main extends Component {
     this.setState({
       isLoading: true
     });
-
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
-      // console.log(response.data.lyrics);
       const lyrics = response.data.lyrics
+      const splitLyrics = lyrics.split(" ")
       this.setState({
         firebaseData: {
           artist: this.state.firebaseData.artist,
           song: this.state.firebaseData.song,
           lyrics
         },
-        isLoading: false
+        isLoading: false,
+        splitLyrics: splitLyrics,
       });
     })
   }
@@ -88,7 +91,8 @@ updatedLyrics = () => {
         artist: "",
         song: "",
         lyrics: ""
-      }    
+      },
+      isLoading: false,
     });
   }
 
@@ -138,38 +142,34 @@ updatedLyrics = () => {
           {/* Right */}
           <section className="right">
             <div className="lyrics">
-              <form action="submit" onSubmit={this.firebase}>
-                <textarea 
-                className="lyricsContainer"
-                name="plans" 
-                cols="30" 
-                rows="10" 
-                minLength="10" 
-                maxLength=""
-                onChange={this.updatedLyrics}
-                // value=""
-                >
-                    {/* {this.state.isLoading ? 
+              {this.state.isLoading ? 
                     (
                       <div className="artSpinnerBox">
                         <Spinner />
                       </div>
                     ) 
                     : 
-                    this.state.firebaseData.lyrics
+                      //Maps over the split lyrics array and either creates an input or returns the word in the array
+                      //to figure out:
+                      //how to compare the index to multiple hideIndex
+                      //how to compare the users input word with the missing lyric
+                      this.state.splitLyrics.map((word, index) => {
+                        const hide = this.state.hideIndex;
+                        if (index === hide[0] ) {
+                          return (<input />)
+                        }
+                        return word + " "
+                      })
                   }
-                    */}
-                    {this.state.firebaseData.lyrics}
-                  
-                  
-                </textarea>
+                
+                    
+
+
                 <div className="buttonContainer">
                   <button className="saveLyrics">
                     Store lyrics
                   </button>
                 </div>
-
-              </form>
             </div>
           </section>
         </div>
