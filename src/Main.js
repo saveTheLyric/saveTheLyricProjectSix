@@ -3,10 +3,6 @@ import Axios from "axios";
 import firebase from './firebase';  
 import Spinner from './Spinner';
 import Firebase from './FirebaseComponent'
-
-
-
-
 class Main extends Component {
   constructor() {
     super();
@@ -18,13 +14,12 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
-      hideIndex: [4], //when mapping splitLyrics compares each index to this number. We need it to compare several numbers in here
-                      //for example if hideIndex: [4, 8, 10, 22, 34, 89, 99, 102, 119, 136]. How do we compare the mapped over index to each number
+      userGuess: '',
+      wordToGuess: ''
     }
+    // console.log(this.state.hideIndex);
   }
-
   //Functions
-
   artistInput = (e) => {
     this.setState({
       firebaseData: {
@@ -33,7 +28,6 @@ class Main extends Component {
       }
     })
   }
-
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -42,7 +36,6 @@ class Main extends Component {
       }
     })
   }
-
   getLyrics = (e) => {
     e.preventDefault();
     this.setState({
@@ -50,8 +43,10 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
+      console.log(response)
       const lyrics = response.data.lyrics
-      const splitLyrics = lyrics.split(" ")
+      const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
+      console.log(splitLyrics)
       this.setState({
         firebaseData: {
           artist: this.state.firebaseData.artist,
@@ -63,7 +58,6 @@ class Main extends Component {
       });
     })
   }
-
 updatedLyrics = () => {
 // reset input field
   this.setState({
@@ -74,17 +68,13 @@ updatedLyrics = () => {
     }  
   })
 }
-
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
-  
     // open portal to Firebase
     const dbRef = firebase.database().ref()
-
     // add new record to Firebase
     dbRef.push(this.state.firebaseData);
-
     // reset input field
     this.setState({
       firebaseData: {
@@ -95,7 +85,16 @@ updatedLyrics = () => {
       isLoading: false,
     });
   }
-
+  test = (e) => {
+    this.setState({
+      userGuess: e.target.value
+    })
+  }
+  // testTwo = (e) => {
+  //   this.setState({
+  //     wordToGuess: 
+  //   })
+  // }
   render(){
     return(
       <main>
@@ -154,23 +153,29 @@ updatedLyrics = () => {
                       //how to compare the index to multiple hideIndex
                       //how to compare the users input word with the missing lyric
                       this.state.splitLyrics.map((word, index) => {
-                        const hide = this.state.hideIndex;
-                        if (index === hide[0] ) {
-                          return (<input />)
+                        // console.log(index)
+                        const hide = this.state.splitLyrics;
+                        // let i = '';
+                        for (let i = 10; i < hide.length; i+=32) {
+                          if ( index === i ) {
+                            return (<input word={word} onChange={this.test}/>)
+                          }
+                          if (this.state.userGuess === word) {
+                            alert('fuckya');
+                            console.log(word)
+                            return 
+                          }
                         }
                         return word + " "
+                        // <p>word</p>
                       })
                   }
-                
-                    
-
-
+            </div>
                 <div className="buttonContainer">
                   <button className="saveLyrics">
                     Store lyrics
                   </button>
                 </div>
-            </div>
           </section>
         </div>
       </main>
