@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/saveTheLyricProjectSix/static/css/main.5c32453b.chunk.css",
+    "main.js": "/saveTheLyricProjectSix/static/js/main.1a95ff0e.chunk.js",
+    "main.js.map": "/saveTheLyricProjectSix/static/js/main.1a95ff0e.chunk.js.map",
+    "runtime-main.js": "/saveTheLyricProjectSix/static/js/runtime-main.bce6cd27.js",
+    "runtime-main.js.map": "/saveTheLyricProjectSix/static/js/runtime-main.bce6cd27.js.map",
+    "static/js/2.6b9f5535.chunk.js": "/saveTheLyricProjectSix/static/js/2.6b9f5535.chunk.js",
+    "static/js/2.6b9f5535.chunk.js.map": "/saveTheLyricProjectSix/static/js/2.6b9f5535.chunk.js.map",
+    "index.html": "/saveTheLyricProjectSix/index.html",
+    "precache-manifest.86c5fb354b9d33a2d30f67cf522c78ff.js": "/saveTheLyricProjectSix/precache-manifest.86c5fb354b9d33a2d30f67cf522c78ff.js",
+    "service-worker.js": "/saveTheLyricProjectSix/service-worker.js",
+    "static/css/main.5c32453b.chunk.css.map": "/saveTheLyricProjectSix/static/css/main.5c32453b.chunk.css.map",
+    "static/js/2.6b9f5535.chunk.js.LICENSE.txt": "/saveTheLyricProjectSix/static/js/2.6b9f5535.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/saveTheLyricProjectSix/static/media/headerBanner.94b6f948.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bce6cd27.js",
+    "static/js/2.6b9f5535.chunk.js",
+    "static/css/main.5c32453b.chunk.css",
+    "static/js/main.1a95ff0e.chunk.js"
+  ]
+}
