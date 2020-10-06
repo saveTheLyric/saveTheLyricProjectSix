@@ -7,10 +7,6 @@ import Firebase from './FirebaseComponent';
 import swal from 'sweetalert';
 
 
-
-
-
-
 class Main extends Component {
   constructor() {
     super();
@@ -60,7 +56,7 @@ class Main extends Component {
       
 
       const lyrics = response.data.lyrics
-      const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
+      const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/\,/g, " ,").split(" ")
       console.log(splitLyrics)
       this.setState({
         firebaseData: {
@@ -76,7 +72,6 @@ class Main extends Component {
             console.log('okokokok')
             swal({
               title: "Try again!",
-              text: "You entered the same song twice",
               icon: "error",
               button: "OK",
             });
@@ -91,34 +86,41 @@ class Main extends Component {
     // Remove data stored in key
     dbRef.child(dataKey).remove(); 
   }
-
-
-updatedLyrics = () => {
-// reset input field
-  this.setState({
-    firebaseData: {
-      artist: "",
-      song: "",
-      lyrics: ""
-    }  
-  })
-}
-
+  
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
+
+    if (this.state.firebaseData.lyrics === "") {
+      console.log('test')
+      swal({
+        title: "Try again!",
+        text: "There is no lyrics to save",
+        icon: "error",
+        button: "OK",
+      })
+    } else if (this.state.lyrics !== "") {
     // open portal to Firebase
     const dbRef = firebase.database().ref()
     // add new record to Firebase
     dbRef.push(this.state.firebaseData);
     // reset input field
+      this.setState({
+        firebaseData: {
+          artist: "",
+          song: "",
+          lyrics: ""
+        },
+        isLoading: false,
+      });
+    }
     this.setState({
       firebaseData: {
         artist: "",
         song: "",
         lyrics: ""
       },
-      isLoading: false,
+      splitLyrics: [],
     });
   }
 
@@ -128,11 +130,18 @@ updatedLyrics = () => {
     })
   }
 
-  // testTwo = (e) => {
-  //   this.setState({
-  //     wordToGuess: 
-  //   })
-  // }
+  handleSubmit = (e, word) => {
+    e.preventDefault()
+    if (this.state.userGuess === word) {
+      // console.log(word)
+      swal({
+        title: "Good job!",
+        text: "On to the next!",
+        icon: "success",
+        button: "Let's Go!",
+      });
+    }
+  }
 
   render(){
     return(
@@ -140,12 +149,14 @@ updatedLyrics = () => {
         <div className="wrapper mainContainer">
         {/* Left */}
           <section className="left">
+            
             <div className="findLyrics">
               <h3>Test your knowledge!</h3>
               <form onSubmit={this.getLyrics} action="">
                 <div className="song">
                   <label htmlFor="song">Song:</label>
                   <input
+                    required
                     type="text"
                     id="song"
                     className="song"
@@ -156,6 +167,7 @@ updatedLyrics = () => {
                 <div className="artist">
                 <label htmlFor="artist">Artist:</label>
                 <input
+                required
                   type="text"
                   id="artist"
                   className="artist"
@@ -178,67 +190,47 @@ updatedLyrics = () => {
           </section>
           {/* Right */}
           <section className="right">
-            <div className="lyrics">
+            <form action="">
+              <div className="lyrics">
+  
               {this.state.isLoading ? 
-                    (
-                      <div className="artSpinnerBox">
-                        <Spinner />
-                      </div>
-                    ) 
-                    : 
-                      //Maps over the split lyrics array and either creates an input or returns the word in the array
-                      //to figure out:
-                      //how to compare the index to multiple hideIndex
-                      //how to compare the users input word with the missing lyric
-                      
-                      this.state.splitLyrics.map((word, index) => {
-                        // console.log(index)
-                        const hide = this.state.splitLyrics;
-                        // let i = '';
-                        for (let i = 10; i < hide.length; i+=32) {
-                          if ( index === i ) {
-                            return (<input word={word} onSubmit={this.test}/>)
+                      (
+                        <div className="artSpinnerBox">
+                          <Spinner />
+                        </div>
+                      ) 
+                      : 
+                        //Maps over the split lyrics array and either creates an input or returns the word in the array
+                        //to figure out:
+                        //how to compare the index to multiple hideIndex
+                        //how to compare the users input word with the missing lyric
+                        this.state.splitLyrics.map((word, index) => {
+                          const hide = this.state.splitLyrics;
+                          // let i = '';
+                          for (let i = 10; i < hide.length; i+=32) {
+                            // if the value in the string is empty
+                            // if (i === "") {
+                              // i = i++
+                            // }
+                            if ( index === i ) {
+                              return (
+                              <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
+                                <input word={word} onChange={this.test}/>
+                              </form>)
+                            }
                           }
-                          if (this.state.userGuess === word) {
-                            
-                            // console.log(word)
-
-                            swal({
-                              title: "Good job!",
-                              text: "On to the next!",
-                              icon: "success",
-                              button: "Let's Go!",
-                            });
-                            
-
-                            return (<input word={word} onChange={this.test}/>)
-                          }
-                          if (this.state.userGuess === word) {
-                            alert('fuckya');
-                            console.log(word)
-                            return 
-
-                            console.log(word)
-                          
-                            return (<input />)
-
-                          }
-                        }
-                        return word + " "
-                        // <p>word</p>
-                      })
-                      
-                  }
-
-
-
-            </div>
-
-                <div className="buttonContainer">
-                  <button onClick={this.firebase} className="saveLyrics">
-                    Store lyrics
-                  </button>
-                </div>
+                          return word + " "
+                        })
+                }
+  
+              </div>
+  
+                  <div className="buttonContainer">
+                    <button onClick={this.firebase} className="saveLyrics">
+                      Store lyrics
+                    </button>
+                  </div>
+            </form>
           </section>
         </div>
       </main>
