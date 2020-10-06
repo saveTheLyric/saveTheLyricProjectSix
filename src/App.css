@@ -7,6 +7,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   --font: ‘Montserrat’, sans-serif;
   --dark: #577F90;
   --light: #86C2AE;
+  --superLight: #CEEDE2;
   --accent: #F0917A;
   --textColor: black;
 }
@@ -21,7 +22,7 @@ html {
 }
 
 header {
-  background-image: url(./assets/headerBanner.jpg);
+  background-image: url(./assets/headerBannerCenter.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -38,11 +39,8 @@ button {
   background-color: var(--accent);
   border-radius: 5px;
   color: white;
-  width: 50%;
+  width: 60%;
   font: 700 1.5rem var(--font);
-  /* how do you want this? */
-  /* border: none; */
-  /* box-shadow: 1px 1px grey; */
   padding: 3px;
   margin-right: 2px;
 }
@@ -83,6 +81,7 @@ main {
 
 .left {
   width: 38%;
+  height: 100vh;
 }
 .findLyrics,
 .myLyrics {
@@ -91,7 +90,7 @@ main {
   border: 3px solid #577F90;
   margin: 10px 0;
   border-radius: 10px;;
-  padding: 0 15px;
+  padding: 0 35px;
 }
 form {
   display: flex;
@@ -103,7 +102,7 @@ form {
 /* A) TEST YOUR KNOWLEDGE */
 
 .findLyrics {
-  height: 35%;
+  height: auto;
 }
 .findLyrics h3 {
   text-align: center;
@@ -137,6 +136,7 @@ input {
 } */
 .myLyrics {
   height: 60%;
+  overflow-y: scroll;
 }
 .myLyrics h3 {
   border-bottom: #F0917A solid 4px;
@@ -154,11 +154,11 @@ input {
   min-height: 30px;
 }
 .savedSongs button {
-  background-color: white;
+  background-color: var(--superLight);
   border-color: var(--light);
   border-radius: 5px;
   color: var(--textColor);
-  font: 400 1.2rem var(--font);
+  font: 400 1.4rem var(--font);
   text-align: left;
   margin: 2px 0;
   width: 80%;
@@ -199,9 +199,9 @@ input {
   margin: 10px 0;
   border: solid 5px var(--dark);
   border-radius: 10px;
-  background: var(--light);
+  background: var(--superLight);
   padding: 15px;
-  height: 100vh;
+  height: auto;
 }
 /* Lyrics Textarea */
 .lyricsContainer {
@@ -247,4 +247,60 @@ a {
 a:hover,
 a:focus {
   color: yellow;
+}
+
+/* TABLET MEDIA QUERY */
+
+@media (max-width: 800px) {
+
+  .wrapper {
+    width: 85%;
+  }
+
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: auto;
+  }
+
+  .myLyrics {
+    height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .right {
+    width: 100%;
+  }
+
+  .lyrics {
+    padding: 4rem;
+    font-size: 1.6rem;
+    line-height: 2.9rem;
+  }
+
+  .lyrics input {
+    width: auto;
+  }
+
+}
+
+@media (max-width: 500px){
+
+  .lyrics {
+    padding: 3rem;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+    overflow-y: scroll;
+    height: 100vh;
+  }
+  .lyrics input {
+    width: 50%;
+  }
 }
