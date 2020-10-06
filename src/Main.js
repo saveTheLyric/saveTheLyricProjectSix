@@ -49,7 +49,7 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
-      // console.log(response)
+      
       const lyrics = response.data.lyrics
       const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
       console.log(splitLyrics)
