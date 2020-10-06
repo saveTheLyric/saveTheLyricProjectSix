@@ -18,11 +18,10 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
-      hideIndex: [4], //when mapping splitLyrics compares each index to this number. We need it to compare several numbers in here
-                      //for example if hideIndex: [4, 8, 10, 22, 34, 89, 99, 102, 119, 136]. How do we compare the mapped over index to each number
     }
+    console.log(this.state.hideIndex);
   }
-
+  
   //Functions
 
   artistInput = (e) => {
@@ -50,8 +49,10 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
+      
       const lyrics = response.data.lyrics
-      const splitLyrics = lyrics.split(" ")
+      const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
+      console.log(splitLyrics)
       this.setState({
         firebaseData: {
           artist: this.state.firebaseData.artist,
@@ -154,11 +155,18 @@ updatedLyrics = () => {
                       //how to compare the index to multiple hideIndex
                       //how to compare the users input word with the missing lyric
                       this.state.splitLyrics.map((word, index) => {
-                        const hide = this.state.hideIndex;
-                        if (index === hide[0] ) {
-                          return (<input />)
+                        // console.log(index)
+                        const hide = this.state.splitLyrics;
+                        // let i = '';
+                        for (let i = 10; i < hide.length; i+=32) {
+                          if ( index === i ) {
+                            console.log(word)
+                           
+                            return (<input />)
+                          }
                         }
                         return word + " "
+                        // <p>word</p>
                       })
                   }
                 
