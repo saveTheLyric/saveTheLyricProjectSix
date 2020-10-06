@@ -21,9 +21,9 @@ class Main extends Component {
     // console.log(this.state.hideIndex);
   }
 
-    }
-    console.log(this.state.hideIndex);
-  }
+
+    
+  
   
 
   //Functions
@@ -178,7 +178,7 @@ updatedLyrics = () => {
                             return 
 
                             console.log(word)
-                           
+                          
                             return (<input />)
 
                           }
