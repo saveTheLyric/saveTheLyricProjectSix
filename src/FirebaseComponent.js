@@ -58,7 +58,7 @@ class Firebase extends Component {
 
                                 <button 
                                     onClick={() => this.handleRemove(data.key)}
-                                    className="">\
+                                    className="">
                                 </button>
                             </div>
                         </div>
