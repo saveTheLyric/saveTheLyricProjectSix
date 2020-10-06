@@ -14,11 +14,18 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
+
       userGuess: '',
       wordToGuess: ''
     }
     // console.log(this.state.hideIndex);
   }
+
+    }
+    console.log(this.state.hideIndex);
+  }
+  
+
   //Functions
   artistInput = (e) => {
     this.setState({
@@ -43,7 +50,11 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
+
       console.log(response)
+
+      
+
       const lyrics = response.data.lyrics
       const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
       console.log(splitLyrics)
@@ -158,12 +169,18 @@ updatedLyrics = () => {
                         // let i = '';
                         for (let i = 10; i < hide.length; i+=32) {
                           if ( index === i ) {
+
                             return (<input word={word} onChange={this.test}/>)
                           }
                           if (this.state.userGuess === word) {
                             alert('fuckya');
                             console.log(word)
                             return 
+
+                            console.log(word)
+                           
+                            return (<input />)
+
                           }
                         }
                         return word + " "
