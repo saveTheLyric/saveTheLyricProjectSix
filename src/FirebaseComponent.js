@@ -37,6 +37,13 @@ class Firebase extends Component {
         // add modal functions eres to display modal of artist song lyrics
     }
 
+    handleRemove = (dataKey) => {
+        // Open portal to Firebase
+        const dbRef = firebase.database().ref();
+        // Remove data stored in key
+        dbRef.child(dataKey).remove(); 
+    }
+
     render() {
         return (
             <>
@@ -44,13 +51,16 @@ class Firebase extends Component {
                     // {console.log(data)}
                     return (
                         <div className="allSavedSongs">
-                          <div className="savedSongs" key={index}>
-                              <button onClick={this.displayLyrics}>{data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}</button>
+                            <div className="savedSongs" key={index}>
+                                <button onClick={this.displayLyrics}>
+                                    {data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}
+                                </button>
 
-                              <button className=""></button>
-                          </div>
-
-                            {/* <p>{data.artistSongLyrics.lyrics}</p> */}
+                                <button 
+                                    onClick={() => this.handleRemove(data.key)}
+                                    className="">\
+                                </button>
+                            </div>
                         </div>
                     )
                 })}
