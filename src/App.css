@@ -81,6 +81,15 @@ main {
   width: 38%;
   height: 100vh;
 }
+.logoContainer {
+  height: 50px;
+  width: 50px;
+  background-image: url(./assets/myLyricsButton.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  top: 35px;
+}
 .findLyrics,
 .myLyrics {
   display: flex;
@@ -88,7 +97,7 @@ main {
   border: 3px solid #577F90;
   margin: 10px 0;
   border-radius: 10px;;
-  padding: 0 35px;
+  padding: 0 25px;
 }
 form {
   display: flex;
@@ -96,11 +105,10 @@ form {
   width: 100%;
 }
 
-
 /* A) TEST YOUR KNOWLEDGE */
 
 .findLyrics {
-  height: auto;
+  height: 45%;
 }
 .findLyrics h3 {
   text-align: center;
@@ -109,13 +117,15 @@ form {
 .artist {
   display: flex;
   justify-content: space-between;
-  margin: 1px 0;
+  margin: 2px 0;
 }
 .song input,
 .artist input {
   width: 80%;
 }
 label {
+  display: flex;
+  align-items: center;
   font: 700 1.5rem var(--font);
 
 }
@@ -123,25 +133,25 @@ input {
   border: 1px solid #577F90;
   font-size: 1.5rem;
   width: 10%;
+  border-radius: 5px;
+  margin: 5px;
 }
 .info {
   height: 30%;
 }
 
 /* B) MY LYRICS CONTAINER: ERROR*/
-/* .logoContainer {
-
-} */
 .myLyrics {
-  height: 60%;
+  height: 53%;
   overflow-y: scroll;
 }
 .myLyrics h3 {
   border-bottom: #F0917A solid 4px;
-  /* position: relative; */
-  /* padding-left: 60px; */
-  /* margin: 10px; */
-  width: 100%;
+  width: 80%;
+  position: relative;
+  left: 50px;
+  padding-left: 10px;
+  top: -25px;
 }
 .allSavedSongs button {
   background-color: #86C2AE;
@@ -159,7 +169,7 @@ input {
   font: 400 1.4rem var(--font);
   text-align: left;
   margin: 2px 0;
-  width: 80%;
+  width: 90%;
 }
 
 .savedSongs button:hover,
@@ -174,9 +184,9 @@ input {
   background-color: white;
   background-image: url(./assets/garbageBin.png);
   background-size: 20px 20px;
-  background-position: center;
+  background-position: right;
   background-repeat: no-repeat;
-  width: 20%;
+  width: 10%;
 }
 
 .savedSongs button:nth-of-type(2n+2):hover,
@@ -185,8 +195,6 @@ input {
   transition: 0.5s all;
 
 }
-
-
 
 /* RIGHT SECTION */
 .right {
@@ -199,7 +207,8 @@ input {
   border-radius: 10px;
   background: var(--superLight);
   padding: 15px;
-  height: auto;
+  height: 100vh;
+  overflow-y: scroll;
 }
 /* Lyrics Textarea */
 .lyricsContainer {
@@ -221,18 +230,6 @@ input {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-
-/* Sweet Modal */
-
-.swal-button {
-    width: 120px;
-  }
-
-.swal-button:hover, 
-.swal-button:focus {
-    background: #78cbf2;
-  };
 
 /* FOOTER */
 
@@ -281,7 +278,11 @@ a:focus {
 
   .myLyrics {
     height: auto;
-    padding-bottom: 2rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .myLyrics h3 {
+    width: 90%;
   }
 
   .right {
@@ -300,7 +301,13 @@ a:focus {
 
 }
 
+/* CELL PHONE MEDIA QUERY: 500PX */
+
 @media (max-width: 500px){
+
+  .myLyrics h3 {
+    width: 85%;
+  }
 
   .lyrics {
     padding: 3rem;
@@ -313,3 +320,14 @@ a:focus {
     width: 50%;
   }
 }
+
+/* Sweet Modal */
+
+.swal-button {
+    width: 120px;
+  }
+
+.swal-button:hover, 
+.swal-button:focus {
+    background: #78cbf2;
+  };
