@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import Axios from "axios";
 import firebase from './firebase';  
 import Spinner from './Spinner';
+
 import Firebase from './FirebaseComponent';
 import swal from 'sweetalert';
 
 
 
 
+
+import Firebase from './FirebaseComponent'
 class Main extends Component {
   constructor() {
     super();
@@ -19,14 +22,14 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
+
       userGuess: '',
       wordToGuess: ''
     }
     // console.log(this.state.hideIndex);
   }
-  
-  //Functions
 
+  //Functions
   artistInput = (e) => {
     this.setState({
       firebaseData: {
@@ -35,7 +38,6 @@ class Main extends Component {
       }
     })
   }
-
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -44,7 +46,6 @@ class Main extends Component {
       }
     })
   }
-
   getLyrics = (e) => {
     e.preventDefault();
     this.setState({
@@ -53,7 +54,11 @@ class Main extends Component {
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
       console.log(response)
+
+
+      console.log(response)
       
+
       const lyrics = response.data.lyrics
       const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
       console.log(splitLyrics)
@@ -87,6 +92,7 @@ class Main extends Component {
     dbRef.child(dataKey).remove(); 
   }
 
+
 updatedLyrics = () => {
 // reset input field
   this.setState({
@@ -101,13 +107,10 @@ updatedLyrics = () => {
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
-  
     // open portal to Firebase
     const dbRef = firebase.database().ref()
-
     // add new record to Firebase
     dbRef.push(this.state.firebaseData);
-
     // reset input field
     this.setState({
       firebaseData: {
@@ -131,7 +134,6 @@ updatedLyrics = () => {
   //   })
   // }
 
- 
   render(){
     return(
       <main>
@@ -209,6 +211,18 @@ updatedLyrics = () => {
                               button: "Let's Go!",
                             });
                             
+
+                            return (<input word={word} onChange={this.test}/>)
+                          }
+                          if (this.state.userGuess === word) {
+                            alert('fuckya');
+                            console.log(word)
+                            return 
+
+                            console.log(word)
+                          
+                            return (<input />)
+
                           }
                         }
                         return word + " "
@@ -217,12 +231,15 @@ updatedLyrics = () => {
                       
                   }
 
+
+
+            </div>
+
                 <div className="buttonContainer">
                   <button onClick={this.firebase} className="saveLyrics">
                     Store lyrics
                   </button>
                 </div>
-            </div>
           </section>
         </div>
       </main>
