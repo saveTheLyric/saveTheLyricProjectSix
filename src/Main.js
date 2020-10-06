@@ -3,10 +3,6 @@ import Axios from "axios";
 import firebase from './firebase';  
 import Spinner from './Spinner';
 import Firebase from './FirebaseComponent'
-
-
-
-
 class Main extends Component {
   constructor() {
     super();
@@ -18,12 +14,19 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
+
+      userGuess: '',
+      wordToGuess: ''
+    }
+    // console.log(this.state.hideIndex);
+  }
+
     }
     console.log(this.state.hideIndex);
   }
   
-  //Functions
 
+  //Functions
   artistInput = (e) => {
     this.setState({
       firebaseData: {
@@ -32,7 +35,6 @@ class Main extends Component {
       }
     })
   }
-
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -41,7 +43,6 @@ class Main extends Component {
       }
     })
   }
-
   getLyrics = (e) => {
     e.preventDefault();
     this.setState({
@@ -49,7 +50,11 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
+
+      console.log(response)
+
       
+
       const lyrics = response.data.lyrics
       const splitLyrics = lyrics.replace(/\n/g, "").replace(/\r/g, "").split(" ")
       console.log(splitLyrics)
@@ -64,7 +69,6 @@ class Main extends Component {
       });
     })
   }
-
 updatedLyrics = () => {
 // reset input field
   this.setState({
@@ -75,17 +79,13 @@ updatedLyrics = () => {
     }  
   })
 }
-
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
-  
     // open portal to Firebase
     const dbRef = firebase.database().ref()
-
     // add new record to Firebase
     dbRef.push(this.state.firebaseData);
-
     // reset input field
     this.setState({
       firebaseData: {
@@ -96,7 +96,16 @@ updatedLyrics = () => {
       isLoading: false,
     });
   }
-
+  test = (e) => {
+    this.setState({
+      userGuess: e.target.value
+    })
+  }
+  // testTwo = (e) => {
+  //   this.setState({
+  //     wordToGuess: 
+  //   })
+  // }
   render(){
     return(
       <main>
@@ -160,25 +169,30 @@ updatedLyrics = () => {
                         // let i = '';
                         for (let i = 10; i < hide.length; i+=32) {
                           if ( index === i ) {
+
+                            return (<input word={word} onChange={this.test}/>)
+                          }
+                          if (this.state.userGuess === word) {
+                            alert('fuckya');
+                            console.log(word)
+                            return 
+
                             console.log(word)
                            
                             return (<input />)
+
                           }
                         }
                         return word + " "
                         // <p>word</p>
                       })
                   }
-                
-                    
-
-
+            </div>
                 <div className="buttonContainer">
                   <button className="saveLyrics">
                     Store lyrics
                   </button>
                 </div>
-            </div>
           </section>
         </div>
       </main>

@@ -30,20 +30,28 @@ header {
 }
 
 h3 {
-  font-size: 2rem;
+  font: 700 2rem var(--font);
 }
 
 button {
   margin: 10px 0;
-  background-color: #F0917A;
+  background-color: var(--accent);
+  border-radius: 5px;
   color: white;
   width: 50%;
-  font-size: 1.5rem;
+  font: 700 1.5rem var(--font);
   /* how do you want this? */
   /* border: none; */
   /* box-shadow: 1px 1px grey; */
   padding: 3px;
   margin-right: 2px;
+}
+
+button:hover,
+button:focus {
+  background: var(--light);
+  transition: 0.5s all;
+  
 }
 
 .buttonContainer {
@@ -57,7 +65,7 @@ button {
 main {
   background-color: white;
   width: 100%;
-  height: 100vh;
+  height: max-content;
 }
 
 .wrapper {
@@ -111,7 +119,8 @@ form {
   width: 80%;
 }
 label {
-  font-size: 1.5rem;
+  font: 700 1.5rem var(--font);
+
 }
 input {
   border: 1px solid #577F90;
@@ -145,23 +154,40 @@ input {
   min-height: 30px;
 }
 .savedSongs button {
-  background-color: none;
+  background-color: white;
+  border-color: var(--light);
+  border-radius: 5px;
+  color: var(--textColor);
+  font: 400 1.2rem var(--font);
+  text-align: left;
   margin: 2px 0;
   width: 80%;
 }
+
+.savedSongs button:hover,
+.savedSongs button:focus {
+  background-color: var(--light);
+  color: white;
+  transition: .5s background;
+}
 /* Garbage can icon */
 .savedSongs button:nth-of-type(2n+2){
-  background: grey;
+  border-style: none;
+  background-color: white;
   background-image: url(./assets/garbageBin.png);
   background-size: 20px 20px;
   background-position: center;
   background-repeat: no-repeat;
   width: 20%;
 }
-button:hover,
-button:focus {
-  background: black;
+
+.savedSongs button:nth-of-type(2n+2):hover,
+.savedSongs button:nth-of-type(2n+2):focus{
+  background-size: 25px 25px;
+  transition: 0.5s all;
+
 }
+
 
 
 /* RIGHT SECTION */
@@ -171,9 +197,9 @@ button:focus {
 }
 .lyrics {
   margin: 10px 0;
-  border: solid 5px #577F90;
+  border: solid 5px var(--dark);
   border-radius: 10px;
-  background: #86C2AE;
+  background: var(--light);
   padding: 15px;
   height: 100vh;
 }
@@ -206,7 +232,8 @@ footer {
   justify-content: center;
   align-items: center;
   height: 40px;
-  background-color: #F0917A;
+  background-color: var(--dark);
+  border-top: 8px solid var(--light);
   margin-top: 40px;
   font-size: 1.5rem;
   color: white;
