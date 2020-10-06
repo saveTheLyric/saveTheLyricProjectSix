@@ -21,11 +21,6 @@ class Main extends Component {
     // console.log(this.state.hideIndex);
   }
 
-
-    
-  
-  
-
   //Functions
   artistInput = (e) => {
     this.setState({
@@ -79,6 +74,7 @@ updatedLyrics = () => {
     }  
   })
 }
+
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
