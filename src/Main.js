@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import Axios from "axios";
 import firebase from './firebase';  
 import Spinner from './Spinner';
+
+import Firebase from './FirebaseComponent';
+import swal from 'sweetalert';
+
+
+
+
+
 import Firebase from './FirebaseComponent'
 class Main extends Component {
   constructor() {
@@ -45,9 +53,10 @@ class Main extends Component {
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
-
       console.log(response)
 
+
+      console.log(response)
       
 
       const lyrics = response.data.lyrics
@@ -61,9 +70,29 @@ class Main extends Component {
         },
         isLoading: false,
         splitLyrics: splitLyrics,
+
       });
+          if (lyrics === "") {
+            console.log('okokokok')
+            swal({
+              title: "Try again!",
+              text: "You entered the same song twice",
+              icon: "error",
+              button: "OK",
+            });
+          }
     })
   }
+
+  // Remove Saved Song
+  handleRemove = (dataKey) => {
+    // Open portal to Firebase
+    const dbRef = firebase.database().ref();
+    // Remove data stored in key
+    dbRef.child(dataKey).remove(); 
+  }
+
+
 updatedLyrics = () => {
 // reset input field
   this.setState({
@@ -92,16 +121,19 @@ updatedLyrics = () => {
       isLoading: false,
     });
   }
+
   test = (e) => {
     this.setState({
       userGuess: e.target.value
     })
   }
+
   // testTwo = (e) => {
   //   this.setState({
   //     wordToGuess: 
   //   })
   // }
+
   render(){
     return(
       <main>
@@ -159,12 +191,26 @@ updatedLyrics = () => {
                       //to figure out:
                       //how to compare the index to multiple hideIndex
                       //how to compare the users input word with the missing lyric
+                      
                       this.state.splitLyrics.map((word, index) => {
                         // console.log(index)
                         const hide = this.state.splitLyrics;
                         // let i = '';
                         for (let i = 10; i < hide.length; i+=32) {
                           if ( index === i ) {
+                            return (<input word={word} onSubmit={this.test}/>)
+                          }
+                          if (this.state.userGuess === word) {
+                            
+                            // console.log(word)
+
+                            swal({
+                              title: "Good job!",
+                              text: "On to the next!",
+                              icon: "success",
+                              button: "Let's Go!",
+                            });
+                            
 
                             return (<input word={word} onChange={this.test}/>)
                           }
@@ -182,10 +228,15 @@ updatedLyrics = () => {
                         return word + " "
                         // <p>word</p>
                       })
+                      
                   }
+
+
+
             </div>
+
                 <div className="buttonContainer">
-                  <button className="saveLyrics">
+                  <button onClick={this.firebase} className="saveLyrics">
                     Store lyrics
                   </button>
                 </div>

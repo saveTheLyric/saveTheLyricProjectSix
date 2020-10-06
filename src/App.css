@@ -12,8 +12,6 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   --textColor: black;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-
 /* UNIVERSAL STYLES */
 
 html {
@@ -224,6 +222,17 @@ input {
   100% { transform: rotate(360deg); }
 }
 
+
+/* Sweet Modal */
+
+.swal-button {
+    width: 120px;
+  }
+
+.swal-button:hover, 
+.swal-button:focus {
+    background: #78cbf2;
+  };
 
 /* FOOTER */
 
