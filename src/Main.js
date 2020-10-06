@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 
 
 
-import Firebase from './FirebaseComponent'
+
 class Main extends Component {
   constructor() {
     super();
@@ -169,10 +169,9 @@ updatedLyrics = () => {
               </form>
             </div>
             <div className="myLyrics">
-              <div className="logoContainer">
-                <img src="./assets/myLyricsButton.jpg" alt=""></img>
-              </div>
-              <h3>My Lyrics</h3>
+                <div className="logoContainer">
+                </div>
+                <h3>My Lyrics</h3>
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
               <Firebase />
             </div>
