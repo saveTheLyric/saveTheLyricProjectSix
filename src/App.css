@@ -271,7 +271,7 @@ a:focus {
   .myLyrics h3 {
     width: 85%;
   }
-
+}
 /* CELL PHONE MEDIA QUERY: 500PX */
 
 @media (max-width: 500px){

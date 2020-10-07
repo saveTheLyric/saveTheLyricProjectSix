@@ -243,11 +243,6 @@ componentDidMount() {
               </div>
               <h3>My Lyrics</h3>
 
-            <div className="myLyrics">
-                <div className="logoContainer">
-                </div>
-                <h3>My Lyrics</h3>
-
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
 
               {this.state.storedFirebaseData.map((data, index) => {
@@ -268,7 +263,7 @@ componentDidMount() {
                         </div>
                     )
                 })
-
+              }
               {/* <Firebase /> */}
             </div>
           </section>
