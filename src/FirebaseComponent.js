@@ -59,7 +59,7 @@ class Firebase extends Component {
     dbRef.child(dataKey).remove(); 
   }
     
-  check = (e) => {
+  handleChange = (e) => {
     this.setState({
       userModalGuess: e.target.value
     })
@@ -110,7 +110,7 @@ class Firebase extends Component {
               if ( index === i ) {
               return (
               <form onSubmit={(e) => this.handleModalSubmit(e, word)} action="">
-                <input word={word} onChange={this.check}/>
+                <input onChange={this.handleChange}/>
               </form>)
               }
             }
