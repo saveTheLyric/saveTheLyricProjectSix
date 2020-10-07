@@ -1,12 +1,14 @@
+//Import packages
 import React, { Component } from "react";
 import Axios from "axios";
-import firebase from './firebase';  
-import Spinner from './Spinner';
-
-import Firebase from './FirebaseComponent';
 import swal from 'sweetalert';
+import firebase from './firebase';  
 
+//Import components
+import Spinner from './Spinner';
+import Firebase from './FirebaseComponent';
 
+//Class based component
 class Main extends Component {
   constructor() {
     super();
@@ -18,14 +20,13 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
-
       userGuess: '',
-      wordToGuess: ''
     }
-    // console.log(this.state.hideIndex);
   }
 
   //Functions
+
+  //Stores user input into state
   artistInput = (e) => {
     this.setState({
       firebaseData: {
@@ -34,6 +35,8 @@ class Main extends Component {
       }
     })
   }
+
+  //Stores user input into state
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -42,22 +45,21 @@ class Main extends Component {
       }
     })
   }
+
+  //Axios call to get lyrics based off of user inputs in state
   getLyrics = (e) => {
     e.preventDefault();
+
     this.setState({
       isLoading: true
     });
+
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
-      console.log(response)
-
-
-      console.log(response)
-      
-
       const lyrics = response.data.lyrics
+      //Removes unwanted characters and splits lyrics into an array
       const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/\,/g, " ,").split(" ")
-      console.log(splitLyrics)
+
       this.setState({
         firebaseData: {
           artist: this.state.firebaseData.artist,
@@ -66,16 +68,16 @@ class Main extends Component {
         },
         isLoading: false,
         splitLyrics: splitLyrics,
-
       });
-          if (lyrics === "") {
-            console.log('okokokok')
-            swal({
-              title: "Try again!",
-              icon: "error",
-              button: "OK",
-            });
-          }
+
+      //Error handling for no results
+      if (lyrics === "") {
+        swal({
+          title: "Try again!",
+          icon: "error",
+          button: "OK",
+        });
+      }
     })
   }
 
@@ -92,7 +94,6 @@ class Main extends Component {
     event.preventDefault();
 
     if (this.state.firebaseData.lyrics === "") {
-      console.log('test')
       swal({
         title: "Try again!",
         text: "There is no lyrics to save",
@@ -114,6 +115,8 @@ class Main extends Component {
         isLoading: false,
       });
     }
+
+    //Empty state after storage 
     this.setState({
       firebaseData: {
         artist: "",
@@ -124,16 +127,16 @@ class Main extends Component {
     });
   }
 
-  test = (e) => {
+  handleChange = (e) => {
     this.setState({
       userGuess: e.target.value
     })
   }
 
+  //Compares users guess against the missing lyric
   handleSubmit = (e, word) => {
     e.preventDefault()
     if (this.state.userGuess === word) {
-      // console.log(word)
       swal({
         title: "Good job!",
         text: "On to the next!",
@@ -150,17 +153,13 @@ class Main extends Component {
     }
   }
 
-  // displayLyrics = () => {
-  //   console.log('okokok')
-  // }
-
   render(){
     return(
       <main>
         <div className="wrapper mainContainer">
         {/* Left */}
           <section className="left">
-            
+
             <div className="findLyrics">
               <h3>Test your knowledge!</h3>
               <form onSubmit={this.getLyrics} action="">
@@ -176,21 +175,22 @@ class Main extends Component {
                   />
                 </div>
                 <div className="artist">
-                <label htmlFor="artist">Artist:</label>
-                <input
-                required
-                  type="text"
-                  id="artist"
-                  className="artist"
-                  onChange={this.artistInput}
-                  value={this.state.firebaseData.artist}
-                />
+                  <label htmlFor="artist">Artist:</label>
+                  <input
+                  required
+                    type="text"
+                    id="artist"
+                    className="artist"
+                    onChange={this.artistInput}
+                    value={this.state.firebaseData.artist}
+                  />
                 </div>
                 <div className="buttonContainer">
                   <button type="submit">Find the lyric</button>
                 </div>
               </form>
             </div>
+
             <div className="myLyrics">
                 <div className="logoContainer">
                 </div>
@@ -199,41 +199,36 @@ class Main extends Component {
               <Firebase />
             </div>
           </section>
+
           {/* Right */}
           <section className="right">
             <form action="">
               <div className="lyrics">
-  
-              {this.state.isLoading ? 
-                      (
-                        <div className="artSpinnerBox">
-                          <Spinner />
-                        </div>
-                      ) 
-                      : 
-                        //Maps over the split lyrics array and either creates an input or returns the word in the array
-                        //to figure out:
-                        //how to compare the index to multiple hideIndex
-                        //how to compare the users input word with the missing lyric
-                        this.state.splitLyrics.map((word, index) => {
-                          const hide = this.state.splitLyrics;
-                          // let i = '';
-                          for (let i = 10; i < hide.length; i+=32) {
-                            // if the value in the string is empty
-                            // if (i === "") {
-                              // i = i++
-                            // }
-                            if ( index === i ) {
-                              return (
-                              <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
-                                <input word={word} onChange={this.test}/>
-                              </form>)
-                            }
-                          }
-                          return word + " "
-                        })
+
+              {/* Ternary to display loading animation while axios call is made */}
+              {this.state.isLoading 
+                ? 
+                  (
+                    <div className="artSpinnerBox">
+                      <Spinner />
+                    </div>
+                  ) 
+                : 
+                  //Maps over lyric array and reuturns either an input field or the lyric
+                  this.state.splitLyrics.map((word, index) => {
+                    //starting at 10th index every 32nd word is replaced with an input field
+                    for (let i = 10; i < this.state.splitLyrics.length; i+=32) {
+                      if ( index === i ) {
+                        return (
+                        <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
+                          <input onChange={this.handleChange}/>
+                        </form>)
+                      }
+                    }
+                    //if not returning a input field the lyric is displayed with a space
+                    return word + " "
+                  })
                 }
-  
               </div>
   
               <div className="buttonContainer">
