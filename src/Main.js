@@ -6,6 +6,7 @@ import Spinner from './Spinner';
 import Firebase from './FirebaseComponent';
 import swal from 'sweetalert';
 
+
 class Main extends Component {
   constructor() {
     super();
@@ -191,10 +192,9 @@ class Main extends Component {
               </form>
             </div>
             <div className="myLyrics">
-              <div className="logoContainer">
-                <img src="./assets/myLyricsButton.jpg" alt=""></img>
-              </div>
-              <h3>My Lyrics</h3>
+                <div className="logoContainer">
+                </div>
+                <h3>My Lyrics</h3>
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
               <Firebase />
             </div>
