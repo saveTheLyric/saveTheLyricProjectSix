@@ -139,9 +139,20 @@ class Main extends Component {
         text: "On to the next!",
         icon: "success",
         button: "Let's Go!",
+      })
+    } else  {
+      swal({
+        title: "OOPS!",
+        text: "Incorrect word!",
+        icon: "error",
+        button: "Try again!",
       });
     }
   }
+
+  // displayLyrics = () => {
+  //   console.log('okokok')
+  // }
 
   render(){
     return(
@@ -225,11 +236,11 @@ class Main extends Component {
   
               </div>
   
-                  <div className="buttonContainer">
-                    <button onClick={this.firebase} className="saveLyrics">
-                      Store lyrics
-                    </button>
-                  </div>
+              <div className="buttonContainer">
+                <button onClick={this.firebase} className="saveLyrics">
+                  Store lyrics
+                </button>
+              </div>
             </form>
           </section>
         </div>
