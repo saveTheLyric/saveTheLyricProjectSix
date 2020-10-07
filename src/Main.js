@@ -18,7 +18,8 @@ class Main extends Component {
       splitLyrics: [],
       userGuess: '',
       storedFirebaseData: [],
-      replayLyrics: []
+      replayLyrics: [],
+      difficulty: 60,
     }
   }
 
@@ -131,7 +132,7 @@ class Main extends Component {
   }
 
   //sets state for when user guesses missing lyric
-  handleChange = (e) => {
+  test = (e) => {
     this.setState({
       userGuess: e.target.value
     })
@@ -163,9 +164,16 @@ class Main extends Component {
       splitLyrics: []
     })
     const lyrics = replay
-    const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
+    const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace(/\?/g, " ?").replace(/\,/g, " ,").split(" ")
     this.setState({
       replayLyrics: splitLyrics
+    })
+  }
+
+  difficulty = (e) => {
+    const difficultyNumber = parseInt(e.target.value, 10)
+    this.setState({
+      difficulty: difficultyNumber,
     })
   }
 
@@ -232,6 +240,9 @@ class Main extends Component {
                   <button type="submit">Find the lyric</button>
                 </div>
               </form>
+              <button className="difficulty-btn" onClick={this.difficulty} value="60">Easy</button>
+              <button className="difficulty-btn" onClick={this.difficulty} value="40" >Medium</button>
+              <button className="difficulty-btn" onClick={this.difficulty} value="20">Hard</button>
             </div>
 
             <div className="myLyrics">
@@ -276,10 +287,10 @@ class Main extends Component {
                     ) 
                   : 
                     //Maps over the split lyrics array and either creates an input or returns the word in the array
-                    <Lyrics lyrics={this.state.splitLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} />
+                    <Lyrics lyrics={this.state.splitLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} difficulty={this.state.difficulty} />
                 }
 
-                    <Lyrics lyrics={this.state.replayLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} />
+                    <Lyrics lyrics={this.state.replayLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} difficulty={this.state.difficulty} />
 
               </div>
 
