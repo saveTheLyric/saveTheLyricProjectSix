@@ -6,8 +6,6 @@ import Header from './Header.js';
 import Main from "./Main.js"
 import Footer from "./Footer"
 
-// import Spinner from 'Spinner';
-
 class App extends Component {
   constructor() {
     super()
@@ -15,7 +13,6 @@ class App extends Component {
       
     }
   }
-
 
   render() {
     return (
