@@ -3,6 +3,8 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit}
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+
+
 :root {
   --font: 'Montserrat', sans-serif;
   --dark: #577F90;
@@ -11,15 +13,15 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
   --accent: #F0917A;
   --textColor: black;
 }
+
 /* UNIVERSAL STYLES */
 html {
   font-size: 62.5%;
-  font-family: 'Montserrat', sans-serif;
 }
 header {
   background-image: url(./assets/headerBannerCenter.png);
-  background-size: cover;
   background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   background-position-y: top;
   height: 100vh; 
@@ -69,6 +71,8 @@ main {
 .logoContainer {
   height: 50px;
   width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   background-image: url(./assets/myLyricsButton.jpg);
   background-size: cover;
   background-position: center;
@@ -82,12 +86,10 @@ main {
   border: 3px solid #577F90;
   margin: 10px 0;
   border-radius: 10px;;
-  padding: 0 25px;
+  padding: 0 25px 25px 25px;
 }
 form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  display: inline;
 }
 
 /* A) TEST YOUR KNOWLEDGE */
@@ -114,10 +116,11 @@ label {
 }
 input {
   border: 1px solid #577F90;
-  font-size: 1.5rem;
+  font: 400 1.5rem var(--font);
   width: 10%;
   border-radius: 5px;
   margin: 5px;
+  padding-left: 7px;
 }
 .info {
   height: 30%;
@@ -129,7 +132,7 @@ input {
 }
 .myLyrics h3 {
   border-bottom: #F0917A solid 4px;
-  width: 80%;
+  width: calc(100% - 55px);
   position: relative;
   left: 50px;
   padding-left: 10px;
@@ -181,18 +184,22 @@ input {
   height: 100%;
 }
 .lyrics {
+  font: 400 1.7rem var(--font);
   margin: 10px 0;
   border: solid 5px var(--dark);
   border-radius: 10px;
   background: var(--superLight);
-  padding: 15px;
+  padding: 30px;
   height: 100vh;
   overflow-y: scroll;
+  line-height: 3.3rem;
+}
+.lyrics input {
+  width: 30%;
 }
 /* Lyrics Textarea */
 .lyricsContainer {
   resize: none;
-  font-size: 1.5rem;
 }
 /* Loading Spinner  */
 .spinner {
@@ -211,13 +218,14 @@ input {
 /* FOOTER */
 footer {
   display: flex;
+  text-align: center;
   justify-content: center;
   align-items: center;
   height: 40px;
   background-color: var(--dark);
   border-top: 8px solid var(--light);
   margin-top: 40px;
-  font-size: 1.5rem;
+  font: 400 1.5rem var(--font);
   color: white;
 }
 a {
@@ -229,7 +237,7 @@ a:focus {
   color: yellow;
 }
 
-/* TABLET MEDIA QUERY */
+/* TABLET MEDIA QUERY: MAX-WIDTH: 800PX */
 @media (max-width: 800px) {
   .wrapper {
     width: 85%;
@@ -249,46 +257,50 @@ a:focus {
     height: auto;
     padding-bottom: 3.5rem;
   }
-
-  .myLyrics h3 {
-    width: 90%;
-  }
   .right {
     width: 100%;
   }
   .lyrics {
     padding: 4rem;
-    font-size: 1.6rem;
+    font: 400 1.6rem var(--font);
     line-height: 2.9rem;
   }
-  .lyrics input {
-    width: auto;
-  }
 }
 
-/* CELL PHONE MEDIA QUERY: 500PX */
-@media (max-width: 500px){
-  .myLyrics h3 {
-    width: 85%;
-  }
-}
-/* CELL PHONE MEDIA QUERY: 500PX */
+/* CELL PHONE MEDIA QUERY: MAX-WIDTH: 500PX */
 
 @media (max-width: 500px){
-
-  .myLyrics h3 {
-    width: 85%;
+  .findLyrics input {
+    width: 100%;
   }
-
+  .findLyrics label {
+    display: none;
+  }
+  .findLyrics button {
+    width: 100%;
+  }
   .lyrics {
     padding: 3rem;
-    font-size: 1.2rem;
-    line-height: 2.5rem;
+    font: 400 1.5rem var(--font);
     overflow-y: scroll;
     height: 100vh;
+    line-height: 3.5rem;
   }
-  .lyrics input {
-    width: 50%;
+}
+
+/* MEDIA QUERY: MAX-WIDTH: 400PX */
+
+@media (max-width: 420px) {
+  header {
+    background-image: url(./assets/microphoneVertical.jpg);
+    background-position: center;
+    background-size: 100% 100%;
+  }
+  .myLyrics {
+    padding: 0 15px 15px 15px;
+  }
+  .myLyrics button {
+    width: 85%;
   }
 }
 

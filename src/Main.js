@@ -192,23 +192,13 @@ class Main extends Component {
           <section className="left">
             <div className="findLyrics">
               <h3>Test your knowledge!</h3>
-
               <form onSubmit={this.getLyrics} action="">
-                <div className="song">
-                  <label htmlFor="song">Song:</label>
-                  <input
-                    required
-                    type="text"
-                    id="song"
-                    className="song"
-                    onChange={this.songInput}
-                    value={this.state.firebaseData.song}
-                  />
-                </div>
-
+                {/* Artist Container */}
                 <div className="artist">
                   <label htmlFor="artist">Artist:</label>
                   <input
+                    placeholder="Artist"
+                    aria-label="Artist name"
                     required
                     type="text"
                     id="artist"
@@ -217,12 +207,28 @@ class Main extends Component {
                     value={this.state.firebaseData.artist}
                   />
                 </div>
+                {/* Song Container */}
+                <div className="song">
+                  <label htmlFor="song">Song:</label>
+                  <input
+                    placeholder="Song"
+                    aria-label="Song name"
+                    required
+                    type="text"
+                    id="song"
+                    className="song"
+                    onChange={this.songInput}
+                    value={this.state.firebaseData.song}
+                  />
+                </div>
+                {/* Submit Button Container */}
                 <div className="buttonContainer">
                   <button type="submit">Find the lyric</button>
                 </div>
               </form>
             </div>
 
+            {/* My Lyrics Container */}
             <div on className="myLyrics">
               <div className="logoContainer">
                 <img src="./assets/myLyricsButton.jpg" alt=""></img>
