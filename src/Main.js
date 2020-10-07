@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import firebase from './firebase';  
 import Spinner from './Spinner';
-
-import Firebase from './FirebaseComponent';
+import firebase from './firebase';  
 import swal from 'sweetalert';
-
 
 class Main extends Component {
   constructor() {
@@ -18,17 +15,15 @@ class Main extends Component {
       },
       isLoading: false,
       splitLyrics: [],
-
       userGuess: '',
-      wordToGuess: '',
-
       storedFirebaseData: [],
-
       replayLyrics: []
     }
   }
 
   //Functions
+
+  //user input, stored into state
   artistInput = (e) => {
     this.setState({
       firebaseData: {
@@ -38,6 +33,7 @@ class Main extends Component {
     })
   }
 
+  //user input, stored into state
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -47,26 +43,18 @@ class Main extends Component {
     })
   }
 
+  //Axios call to get lyrics from API
   getLyrics = (e) => {
     e.preventDefault();
-    // if (this.state.firebaseData.artist === "" || this.state.firebaseData.song === "") {
-    //   swal({
-    //     title: "Oops",
-    //     text: "Song and Artist must be entered",
-    //     icon: "error",
-    //     button: "OK",
-    //   })
-    // }
-    
     this.setState({
       isLoading: true
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
 
+      //Remove unwanted characters from the lyrics and split each word into an array
       const lyrics = response.data.lyrics
       const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
-      console.log(splitLyrics)
       this.setState({
         firebaseData: {
           artist: this.state.firebaseData.artist,
@@ -75,15 +63,16 @@ class Main extends Component {
         },
         isLoading: false,
         splitLyrics: splitLyrics,
-
       });
-          if (lyrics === "") {
-            swal({
-              title: "Try again!",
-              icon: "error",
-              button: "OK",
-            });
-          }
+
+      //error handling for no results
+      if (lyrics === "") {
+        swal({
+          title: "Try again!",
+          icon: "error",
+          button: "OK",
+        });
+      }
     })
   }
 
@@ -98,11 +87,11 @@ class Main extends Component {
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
-  
       this.setState({
         replayLyrics: []
       })
-
+    
+    //Error handling for user trying to save empty lyric field to firebase
     if (this.state.firebaseData.lyrics === "") {
       swal({
         title: "Try again!",
@@ -135,16 +124,17 @@ class Main extends Component {
     });
   }
 
-  test = (e) => {
+  //sets state for when user guesses missing lyric
+  handleChange = (e) => {
     this.setState({
       userGuess: e.target.value
     })
   }
 
+  //checks userGuess state against the missing lyric
   handleSubmit = (e, word) => {
     e.preventDefault()
     if (this.state.userGuess === word) {
-      // console.log(word)
       swal({
         title: "Good job!",
         text: "On to the next!",
@@ -161,43 +151,38 @@ class Main extends Component {
     }
   }
 
+  //Displays lyrics saved in firebase to play again
   replayLyrics = (props) => {
     this.setState({
       splitLyrics: []
     })
-    console.log(props)
     const lyrics = props
-        const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
-        console.log(splitLyrics)
-      
+    const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
     this.setState({
       replayLyrics: splitLyrics
     })
-}
+  }
 
-componentDidMount() {
-  // create a Firebase reference
-  const dbRef = firebase.database().ref();
-  // listen to the value change and use `response` as the db value
-  dbRef.on('value', (response) => {
-    // clean up data from Firebase and store in state
+  componentDidMount() {
+    // create a Firebase reference
+    const dbRef = firebase.database().ref();
+    // listen to the value change and use `response` as the db value
+    dbRef.on('value', (response) => {
+      // clean up data from Firebase and store in state
       const storedFirebaseData = [];
       const data = response.val();
 
       for(let key in data) {
-          storedFirebaseData.push({
-              key: key, 
-              artistSongLyrics: data[key]
-          });  
-
+        storedFirebaseData.push({
+            key: key, 
+            artistSongLyrics: data[key]
+        });  
       }
-      // console.log(storedFirebaseData)
       this.setState({
           storedFirebaseData
       });
-  
-  });
-}
+    });
+  }
 
   render(){
     return(
@@ -205,9 +190,9 @@ componentDidMount() {
         <div className="wrapper mainContainer">
         {/* Left */}
           <section className="left">
-            
             <div className="findLyrics">
               <h3>Test your knowledge!</h3>
+
               <form onSubmit={this.getLyrics} action="">
                 <div className="song">
                   <label htmlFor="song">Song:</label>
@@ -220,16 +205,17 @@ componentDidMount() {
                     value={this.state.firebaseData.song}
                   />
                 </div>
+
                 <div className="artist">
-                <label htmlFor="artist">Artist:</label>
-                <input
-                required
-                  type="text"
-                  id="artist"
-                  className="artist"
-                  onChange={this.artistInput}
-                  value={this.state.firebaseData.artist}
-                />
+                  <label htmlFor="artist">Artist:</label>
+                  <input
+                    required
+                    type="text"
+                    id="artist"
+                    className="artist"
+                    onChange={this.artistInput}
+                    value={this.state.firebaseData.artist}
+                  />
                 </div>
                 <div className="buttonContainer">
                   <button type="submit">Find the lyric</button>
@@ -243,86 +229,66 @@ componentDidMount() {
               </div>
               <h3>My Lyrics</h3>
 
-              {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
-
               {this.state.storedFirebaseData.map((data, index) => {
-                    {console.log(data)}
-                    const lyricsFrom = data.artistSongLyrics.lyrics
-                    return (
-                        <div className="allSavedSongs">
-                            <div className="savedSongs" key={index}>
-                                <button onClick={() => this.replayLyrics(lyricsFrom)} test={lyricsFrom}>
-                                    {data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}
-                                </button>
-                                    
-                                <button 
-                                    onClick={() => this.handleRemove(data.key)}
-                                    className="">
-                                </button>
-                            </div>
-                        </div>
-                    )
-                })
-              }
-              {/* <Firebase /> */}
+                const lyricsFrom = data.artistSongLyrics.lyrics
+                return (
+                  <div className="allSavedSongs">
+                    <div className="savedSongs" key={index}>
+                      <button onClick={() => this.replayLyrics(lyricsFrom)} test={lyricsFrom}>
+                        {data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}
+                      </button>
+                          
+                      <button 
+                        onClick={() => this.handleRemove(data.key)}
+                        className="">
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
+
           </section>
           {/* Right */}
           <section className="right">
             <form action="">
               <div className="lyrics" defaultValue="">
-  
-              {this.state.isLoading ? 
-                      (
-                        <div className="artSpinnerBox">
-                          <Spinner />
-                        </div>
-                      ) 
-                      : 
-                        //Maps over the split lyrics array and either creates an input or returns the word in the array
-                        //to figure out:
-                        //how to compare the index to multiple hideIndex
-                        //how to compare the users input word with the missing lyric
-                        this.state.splitLyrics.map((word, index) => {
-                          const hide = this.state.splitLyrics;
-                          // let i = '';
-                          for (let i = 10; i < hide.length; i+=32) {
-                            // if the value in the string is empty
-                            // if (i === "") {
-                              // i = i++
-                            // }
-                            if ( index === i ) {
-                              return (
-                              <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
-                                <input word={word} onChange={this.test}/>
-                              </form>)
-                            }
-                          }
-                          return word + " "
-                        })
-                }
-
-                        {this.state.replayLyrics.map((word, index) => {
-                          const hide = this.state.replayLyrics;
-                          // let i = '';
-                          for (let i = 10; i < hide.length; i+=32) {
-                            // if the value in the string is empty
-                            // if (i === "") {
-                              // i = i++
-                            // }
-                            if ( index === i ) {
-                              return (
-                              <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
-                                <input word={word} onChange={this.test}/>
-                              </form>)
-                            }
-                          }
-                          return word + " "
-                        })
+              {this.state.isLoading 
+                ? 
+                  (
+                    <div className="artSpinnerBox">
+                      <Spinner />
+                    </div>
+                  ) 
+                : 
+                  //Maps over the split lyrics array and either creates an input or returns the word in the array
+                  this.state.splitLyrics.map((word, index) => {
+                    const hide = this.state.splitLyrics;
+                    for (let i = 10; i < hide.length; i+=32) {
+                      if ( index === i ) {
+                        return (
+                        <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
+                          <input onChange={this.handleChange}/>
+                        </form>)
                       }
-  
+                    }
+                    return word + " "
+                  })}
+
+                {this.state.replayLyrics.map((word, index) => {
+                  const hide = this.state.replayLyrics;
+                  for (let i = 10; i < hide.length; i+=32) {
+                    if ( index === i ) {
+                      return (
+                      <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
+                        <input word={word} onChange={this.handleChange}/>
+                      </form>)
+                    }
+                  }
+                  return word + " "
+                })}
+                
               </div>
-  
               <div className="buttonContainer">
                 <button onClick={this.firebase} className="saveLyrics">
                   Store lyrics
