@@ -205,51 +205,63 @@ class Main extends Component {
     return(
       <main>
         <div className="wrapper mainContainer">
-        {/* Left */}
-          <section className="left">
+        {/* One */}
+          <section className="containerOne">
             <div className="findLyrics">
-              <h3>Test your knowledge!</h3>
+              <div className="inputContainer">
+                <h1>Test your knowledge!</h1>
+  
+                <form onSubmit={this.getLyrics} action="">
+  
+                  <div className="artist">
+                    <label htmlFor="artist">Artist:</label>
+                    <input
+                      required
+                      type="text"
+                      id="artist"
+                      className="artist"
+                      placeholder="Artist"
+                      aria-label="artist"
+                      onChange={this.artistInput}
+                      value={this.state.firebaseData.artist}
+                    />
+                  </div>
+  
+                  <div className="song">
+                    <label htmlFor="song">Song:</label>
+                    <input
+                      required
+                      type="text"
+                      id="song"
+                      className="song"
+                      placeholder="Song"
+                      aria-label="song"
+                      onChange={this.songInput}
+                      value={this.state.firebaseData.song}
+                    />
+                  </div>
+  
+                  <div className="buttonContainer">
+                    <button type="submit">Find lyrics</button>
+                  </div>
+                </form>
+              </div>
 
-              <form onSubmit={this.getLyrics} action="">
-
-                <div className="artist">
-                  <label htmlFor="artist">Artist:</label>
-                  <input
-                    required
-                    type="text"
-                    id="artist"
-                    className="artist"
-                    onChange={this.artistInput}
-                    value={this.state.firebaseData.artist}
-                  />
-                </div>
-
-                <div className="song">
-                  <label htmlFor="song">Song:</label>
-                  <input
-                    required
-                    type="text"
-                    id="song"
-                    className="song"
-                    onChange={this.songInput}
-                    value={this.state.firebaseData.song}
-                  />
-                </div>
-
+              <div className="difficultyContainer">
+                <h1>Difficulty</h1>
                 <div className="buttonContainer">
-                  <button type="submit">Find the lyric</button>
+                  <button className="difficulty-btn" onClick={this.difficulty} value="60">Easy</button>
+                  <button className="difficulty-btn" onClick={this.difficulty} value="40" >Medium</button>
+                  <button className="difficulty-btn" onClick={this.difficulty} value="20">Hard</button>
                 </div>
-              </form>
-              <button className="difficulty-btn" onClick={this.difficulty} value="60">Easy</button>
-              <button className="difficulty-btn" onClick={this.difficulty} value="40" >Medium</button>
-              <button className="difficulty-btn" onClick={this.difficulty} value="20">Hard</button>
+              </div>
             </div>
 
             <div className="myLyrics">
               <div className="logoContainer">
                 <img src="./assets/myLyricsButton.jpg" alt=""></img>
               </div>
-              <h3>My Lyrics</h3>
+              <h1>My Lyrics</h1>
 
               {this.state.storedFirebaseData.map((data, index) => {
                 const lyricsFrom = data.artistSongLyrics.lyrics
@@ -273,8 +285,8 @@ class Main extends Component {
             </div>
 
           </section>
-          {/* Right */}
-          <section className="right">
+          {/* Two */}
+          <section className="containerTwo">
             <form action="">
               <div className="lyrics" defaultValue="">
 
