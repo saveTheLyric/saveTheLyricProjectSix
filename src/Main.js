@@ -19,9 +19,12 @@ class Main extends Component {
       splitLyrics: [],
 
       userGuess: '',
-      wordToGuess: ''
+      wordToGuess: '',
+
+      storedFirebaseData: [],
+
+      replayLyrics: []
     }
-    // console.log(this.state.hideIndex);
   }
 
   //Functions
@@ -33,6 +36,7 @@ class Main extends Component {
       }
     })
   }
+
   songInput = (e)=> {
     this.setState({
       firebaseData: {
@@ -41,21 +45,26 @@ class Main extends Component {
       }
     })
   }
+
   getLyrics = (e) => {
     e.preventDefault();
+    // if (this.state.firebaseData.artist === "" || this.state.firebaseData.song === "") {
+    //   swal({
+    //     title: "Oops",
+    //     text: "Song and Artist must be entered",
+    //     icon: "error",
+    //     button: "OK",
+    //   })
+    // }
+    
     this.setState({
       isLoading: true
     });
     Axios.get(`https://api.lyrics.ovh/v1/${this.state.firebaseData.artist}/${this.state.firebaseData.song}`)
     .then((response) => {
-      console.log(response)
-
-
-      console.log(response)
-      
 
       const lyrics = response.data.lyrics
-      const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/\,/g, " ,").split(" ")
+      const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
       console.log(splitLyrics)
       this.setState({
         firebaseData: {
@@ -68,7 +77,6 @@ class Main extends Component {
 
       });
           if (lyrics === "") {
-            console.log('okokokok')
             swal({
               title: "Try again!",
               icon: "error",
@@ -89,12 +97,15 @@ class Main extends Component {
   // Store firebaseData: (artist, song, lyrics) to firebase
   firebase = (event) => {
     event.preventDefault();
+  
+      this.setState({
+        replayLyrics: []
+      })
 
     if (this.state.firebaseData.lyrics === "") {
-      console.log('test')
       swal({
         title: "Try again!",
-        text: "There is no lyrics to save",
+        text: "There is no lyrics to save || Song is already saved",
         icon: "error",
         button: "OK",
       })
@@ -149,9 +160,43 @@ class Main extends Component {
     }
   }
 
-  // displayLyrics = () => {
-  //   console.log('okokok')
-  // }
+  replayLyrics = (props) => {
+    this.setState({
+      splitLyrics: []
+    })
+    console.log(props)
+    const lyrics = props
+        const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/,/g, " ,").split(" ")
+        console.log(splitLyrics)
+      
+    this.setState({
+      replayLyrics: splitLyrics
+    })
+}
+
+componentDidMount() {
+  // create a Firebase reference
+  const dbRef = firebase.database().ref();
+  // listen to the value change and use `response` as the db value
+  dbRef.on('value', (response) => {
+    // clean up data from Firebase and store in state
+      const storedFirebaseData = [];
+      const data = response.val();
+
+      for(let key in data) {
+          storedFirebaseData.push({
+              key: key, 
+              artistSongLyrics: data[key]
+          });  
+
+      }
+      // console.log(storedFirebaseData)
+      this.setState({
+          storedFirebaseData
+      });
+  
+  });
+}
 
   render(){
     return(
@@ -190,19 +235,40 @@ class Main extends Component {
                 </div>
               </form>
             </div>
-            <div className="myLyrics">
+            <div on className="myLyrics">
               <div className="logoContainer">
                 <img src="./assets/myLyricsButton.jpg" alt=""></img>
               </div>
               <h3>My Lyrics</h3>
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
-              <Firebase />
+
+              {this.state.storedFirebaseData.map((data, index) => {
+                    {console.log(data)}
+                    const lyricsFrom = data.artistSongLyrics.lyrics
+                    return (
+                        <div className="allSavedSongs">
+                            <div className="savedSongs" key={index}>
+                                <button onClick={() => this.replayLyrics(lyricsFrom)} test={lyricsFrom}>
+                                    {data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}
+                                </button>
+                                    
+                                <button 
+                                    onClick={() => this.handleRemove(data.key)}
+                                    className="">
+                                </button>
+                            </div>
+                        </div>
+                    )
+                })}
+                
+
+              {/* <Firebase /> */}
             </div>
           </section>
           {/* Right */}
           <section className="right">
             <form action="">
-              <div className="lyrics">
+              <div className="lyrics" defaultValue="">
   
               {this.state.isLoading ? 
                       (
@@ -233,6 +299,25 @@ class Main extends Component {
                           return word + " "
                         })
                 }
+
+                        {this.state.replayLyrics.map((word, index) => {
+                          const hide = this.state.replayLyrics;
+                          // let i = '';
+                          for (let i = 10; i < hide.length; i+=32) {
+                            // if the value in the string is empty
+                            // if (i === "") {
+                              // i = i++
+                            // }
+                            if ( index === i ) {
+                              return (
+                              <form onSubmit={(e) => this.handleSubmit(e, word)} action="">
+                                <input word={word} onChange={this.test}/>
+                              </form>)
+                            }
+                          }
+                          return word + " "
+                        })
+                      }
   
               </div>
   
