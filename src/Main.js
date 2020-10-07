@@ -6,6 +6,7 @@ import Spinner from './Spinner';
 import Firebase from './FirebaseComponent';
 import swal from 'sweetalert';
 
+
 class Main extends Component {
   constructor() {
     super();
@@ -235,11 +236,18 @@ componentDidMount() {
                 </div>
               </form>
             </div>
+
             <div on className="myLyrics">
               <div className="logoContainer">
                 <img src="./assets/myLyricsButton.jpg" alt=""></img>
               </div>
               <h3>My Lyrics</h3>
+
+            <div className="myLyrics">
+                <div className="logoContainer">
+                </div>
+                <h3>My Lyrics</h3>
+
               {/* THIS IS WHERE THE FIREBASE COMPONENT IS DISPLAYED */}
 
               {this.state.storedFirebaseData.map((data, index) => {
