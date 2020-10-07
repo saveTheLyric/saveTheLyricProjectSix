@@ -228,14 +228,6 @@ a:hover,
 a:focus {
   color: yellow;
 }
-/* Sweet Modal */
-.swal-button {
-    width: 120px;
-  }
-.swal-button:hover, 
-.swal-button:focus {
-    background: #78cbf2;
-  };
 
 /* TABLET MEDIA QUERY */
 @media (max-width: 800px) {
@@ -299,6 +291,11 @@ a:focus {
     width: 50%;
   }
 }
+
+/* Sweet Modal */
+.swal-button {
+    width: 120px;
+  }
 
 /* Sweet Modal */
 

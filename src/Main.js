@@ -267,8 +267,7 @@ componentDidMount() {
                             </div>
                         </div>
                     )
-                })}
-                
+                })
 
               {/* <Firebase /> */}
             </div>
