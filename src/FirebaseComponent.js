@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 import firebase from './firebase'; 
+import swal from 'sweetalert';
 
 class Firebase extends Component {
     constructor() {
         super()
         this.state = {
-            storedFirebaseData: [],
+            storedFirebaseData: [
+
+            ],
+            splitLyrics: [],
+            userModalGuess: ''
+
         }
+        
     } 
 
     componentDidMount() {
@@ -33,9 +40,26 @@ class Firebase extends Component {
         });
     }
 
-    displayLyrics = () => {
-        // add modal functions eres to display modal of artist song lyrics
+    saveLyrics = () => {
+        this.state.storedFirebaseData.map((data, index) => {
+            const savedSong = data.artistSongLyrics.song
+            const savedArtist = data.artistSongLyrics.artist
+            const savedLyrics = data.artistSongLyrics.lyrics
+            
+
+            console.log(savedLyrics)
+        })
+        
     }
+
+    displayLyrics = (lyrics) => {
+        
+      const splitLyrics = lyrics.replace(/\n/g, " ").replace(/\r/g, "").replace("?", " ?").replace(/\,/g, " ,").split(" ")
+      console.log(splitLyrics)
+      this.setState({
+        splitLyrics
+      });
+    }   
 
     handleRemove = (dataKey) => {
         // Open portal to Firebase
@@ -43,6 +67,33 @@ class Firebase extends Component {
         // Remove data stored in key
         dbRef.child(dataKey).remove(); 
     }
+
+    
+  check = (e) => {
+    this.setState({
+      userModalGuess: e.target.value
+    })
+  }
+
+
+    handleModalSubmit = (e, word) => {
+        e.preventDefault()
+        if (this.state.userModalGuess === word) {
+          swal({
+            title: "Good job!",
+            text: "On to the next!",
+            icon: "success",
+            button: "Let's Go!",
+          });
+        } else  {
+            swal({
+              title: "OOPS!",
+              text: "Incorrect word!",
+              icon: "error",
+              button: "Try again!",
+            });
+          }
+      }
 
     render() {
         return (
@@ -52,10 +103,10 @@ class Firebase extends Component {
                     return (
                         <div className="allSavedSongs">
                             <div className="savedSongs" key={index}>
-                                <button onClick={this.displayLyrics}>
+                                <button props={data.artistSongLyrics.lyrics}  onClick={() => this.displayLyrics(data.artistSongLyrics.lyrics)}>
                                     {data.artistSongLyrics.artist.toUpperCase()} - {data.artistSongLyrics.song.toUpperCase()}
                                 </button>
-
+                                    
                                 <button 
                                     onClick={() => this.handleRemove(data.key)}
                                     className="">
@@ -64,6 +115,20 @@ class Firebase extends Component {
                         </div>
                     )
                 })}
+                <div>
+                    {this.state.splitLyrics.map((word, index) => {
+                        const hide = this.state.splitLyrics;
+                        for (let i = 10; i < hide.length; i+=32) {
+                            if ( index === i ) {
+                            return (
+                            <form onSubmit={(e) => this.handleModalSubmit(e, word)} action="">
+                                <input word={word} onChange={this.check}/>
+                            </form>)
+                            }
+                        }
+                        return word + " "
+                    })}
+                </div>
             </>
         );
     }  

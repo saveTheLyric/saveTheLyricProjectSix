@@ -4,21 +4,18 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 *, *:before, *:after {box-sizing: inherit}
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 :root {
-  --font: ‘Montserrat’, sans-serif;
+  --font: 'Montserrat', sans-serif;
   --dark: #577F90;
   --light: #86C2AE;
   --superLight: #CEEDE2;
   --accent: #F0917A;
   --textColor: black;
 }
-
 /* UNIVERSAL STYLES */
-
 html {
   font-size: 62.5%;
-  font-family: ‘Montserrat’, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
-
 header {
   background-image: url(./assets/headerBannerCenter.png);
   background-size: cover;
@@ -27,11 +24,9 @@ header {
   background-position-y: top;
   height: 100vh; 
 }
-
 h3 {
   font: 700 2rem var(--font);
 }
-
 button {
   margin: 10px 0;
   background-color: var(--accent);
@@ -42,44 +37,43 @@ button {
   padding: 3px;
   margin-right: 2px;
 }
-
 button:hover,
 button:focus {
   background: var(--light);
   transition: 0.5s all;
-  
 }
-
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
 }
-
-
 /* BODY */
-
 main {
   background-color: white;
   width: 100%;
   height: max-content;
 }
-
 .wrapper {
   max-width: 1280px;
   margin: 0 auto;
   width: 90%;
 }
-
 .mainContainer {
   display: flex;
   justify-content: space-between;
 }
-
 /* LEFT CONTAINER */
-
 .left {
   width: 38%;
   height: 100vh;
+}
+.logoContainer {
+  height: 50px;
+  width: 50px;
+  background-image: url(./assets/myLyricsButton.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  top: 35px;
 }
 .findLyrics,
 .myLyrics {
@@ -88,19 +82,16 @@ main {
   border: 3px solid #577F90;
   margin: 10px 0;
   border-radius: 10px;;
-  padding: 0 35px;
+  padding: 0 25px;
 }
 form {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-
-
 /* A) TEST YOUR KNOWLEDGE */
-
 .findLyrics {
-  height: auto;
+  height: 45%;
 }
 .findLyrics h3 {
   text-align: center;
@@ -109,39 +100,39 @@ form {
 .artist {
   display: flex;
   justify-content: space-between;
-  margin: 1px 0;
+  margin: 2px 0;
 }
 .song input,
 .artist input {
   width: 80%;
 }
 label {
+  display: flex;
+  align-items: center;
   font: 700 1.5rem var(--font);
-
 }
 input {
   border: 1px solid #577F90;
   font-size: 1.5rem;
   width: 10%;
+  border-radius: 5px;
+  margin: 5px;
 }
 .info {
   height: 30%;
 }
-
 /* B) MY LYRICS CONTAINER: ERROR*/
-/* .logoContainer {
-
-} */
 .myLyrics {
-  height: 60%;
+  height: 53%;
   overflow-y: scroll;
 }
 .myLyrics h3 {
   border-bottom: #F0917A solid 4px;
-  /* position: relative; */
-  /* padding-left: 60px; */
-  /* margin: 10px; */
-  width: 100%;
+  width: 80%;
+  position: relative;
+  left: 50px;
+  padding-left: 10px;
+  top: -25px;
 }
 .allSavedSongs button {
   background-color: #86C2AE;
@@ -159,9 +150,8 @@ input {
   font: 400 1.4rem var(--font);
   text-align: left;
   margin: 2px 0;
-  width: 80%;
+  width: 90%;
 }
-
 .savedSongs button:hover,
 .savedSongs button:focus {
   background-color: var(--light);
@@ -174,20 +164,15 @@ input {
   background-color: white;
   background-image: url(./assets/garbageBin.png);
   background-size: 20px 20px;
-  background-position: center;
+  background-position: right;
   background-repeat: no-repeat;
-  width: 20%;
+  width: 10%;
 }
-
 .savedSongs button:nth-of-type(2n+2):hover,
 .savedSongs button:nth-of-type(2n+2):focus{
   background-size: 25px 25px;
   transition: 0.5s all;
-
 }
-
-
-
 /* RIGHT SECTION */
 .right {
   width: 58%;
@@ -199,14 +184,14 @@ input {
   border-radius: 10px;
   background: var(--superLight);
   padding: 15px;
-  height: auto;
+  height: 100vh;
+  overflow-y: scroll;
 }
 /* Lyrics Textarea */
 .lyricsContainer {
   resize: none;
   font-size: 1.5rem;
 }
-
 /* Loading Spinner  */
 .spinner {
   border: 16px solid #f3f3f3; 
@@ -216,26 +201,11 @@ input {
   height: 120px;
   animation: spin 2s linear infinite;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-
-/* Sweet Modal */
-
-.swal-button {
-    width: 120px;
-  }
-
-.swal-button:hover, 
-.swal-button:focus {
-    background: #78cbf2;
-  };
-
 /* FOOTER */
-
 footer {
   display: flex;
   justify-content: center;
@@ -247,61 +217,62 @@ footer {
   font-size: 1.5rem;
   color: white;
 }
-
 a {
   text-decoration: none;
   color: white;
 }
-
 a:hover,
 a:focus {
   color: yellow;
 }
-
+/* Sweet Modal */
+.swal-button {
+    width: 120px;
+  }
+.swal-button:hover, 
+.swal-button:focus {
+    background: #78cbf2;
+  };
 /* TABLET MEDIA QUERY */
-
 @media (max-width: 800px) {
-
   .wrapper {
     width: 85%;
   }
-
   .mainContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
   .left {
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
     height: auto;
   }
-
   .myLyrics {
     height: auto;
-    padding-bottom: 2rem;
+    padding-bottom: 3.5rem;
   }
-
+  .myLyrics h3 {
+    width: 90%;
+  }
   .right {
     width: 100%;
   }
-
   .lyrics {
     padding: 4rem;
     font-size: 1.6rem;
     line-height: 2.9rem;
   }
-
   .lyrics input {
     width: auto;
   }
-
 }
-
+/* CELL PHONE MEDIA QUERY: 500PX */
 @media (max-width: 500px){
-
+  .myLyrics h3 {
+    width: 85%;
+  }
   .lyrics {
     padding: 3rem;
     font-size: 1.2rem;
