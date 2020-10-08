@@ -70,7 +70,7 @@ class Main extends Component {
       //error handling for no results
       if (lyrics === "") {
         swal({
-          title: "Try again!",
+          title: " try again!",
           icon: "error",
           button: "OK",
         });
@@ -302,8 +302,7 @@ class Main extends Component {
                     <Lyrics lyrics={this.state.splitLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} difficulty={this.state.difficulty} />
                 }
 
-                    <Lyrics lyrics={this.state.replayLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} difficulty={this.state.difficulty} />
-
+                <Lyrics lyrics={this.state.replayLyrics} submit={(e, word) => this.handleSubmit(e, word)} change={this.test} difficulty={this.state.difficulty} />
               </div>
 
               <div className="buttonContainer">
