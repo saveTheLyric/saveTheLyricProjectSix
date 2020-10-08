@@ -5,6 +5,7 @@ const Header = () => {
     <>
       <header>
         {/*  */}
+        <a className="btn" href="#main">Let's Play!</a>
       </header>
     </>
   )

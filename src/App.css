@@ -14,6 +14,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 /* UNIVERSAL STYLES */
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 header {
   background-image: url(./assets/headerBannerCenter.png);
@@ -26,7 +27,7 @@ header {
 h1 {
   font: 700 2rem var(--font);
 }
-button {
+button, .btn {
   background-color: var(--accent);
   border-radius: 0.5rem;
   color: white;

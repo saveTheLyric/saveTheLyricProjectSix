@@ -203,7 +203,7 @@ class Main extends Component {
 
   render(){
     return(
-      <main>
+      <main id="main">
         <div className="wrapper mainContainer">
         {/* One */}
           <section className="containerOne">
