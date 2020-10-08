@@ -250,9 +250,9 @@ class Main extends Component {
               <div className="difficultyContainer">
                 <h1>Difficulty</h1>
                 <div className="buttonContainer">
-                  <button className="difficulty-btn" onClick={this.difficulty} value="55">Easy</button>
-                  <button className="difficulty-btn" onClick={this.difficulty} value="35" >Medium</button>
-                  <button className="difficulty-btn" onClick={this.difficulty} value="15">Hard</button>
+                  <button onClick={this.difficulty} value="55">Easy</button>
+                  <button onClick={this.difficulty} value="35" >Medium</button>
+                  <button onClick={this.difficulty} value="15">Hard</button>
                 </div>
               </div>
             </div>

@@ -4,8 +4,9 @@ const Header = () => {
   return (
     <>
       <header>
-        {/*  */}
-        <a className="btn" href="#main">Let's Play!</a>
+        <div className="wrapper">
+          <a className="btn"  aria-label="artist" href="#main">Let's Play!</a>
+        </div>
       </header>
     </>
   )
